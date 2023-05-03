@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/miAddContect"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/setting"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/miFeedBack"
+        android:title="@string/task_list"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/miCloseapp"
+        android:title="@string/add_in_batch_mode"
+        app:showAsAction="never" />
+    <item
+        android:title="@string/remove_adds"
+        app:showAsAction="never" />
+    <item
+        android:title="@string/more_app"
+        app:showAsAction="never" />
+
+</menu>
