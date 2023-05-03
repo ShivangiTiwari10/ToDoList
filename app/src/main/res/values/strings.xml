@@ -12,4 +12,6 @@
     <string name="spinner_title">Spinner Title</string>
     <string name="todolist">ToDoList</string>
     <string name="enter_quick_task_here">Enter quick task Here</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 </resources>
