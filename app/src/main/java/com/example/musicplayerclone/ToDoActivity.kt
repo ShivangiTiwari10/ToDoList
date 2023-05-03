@@ -1,6 +1,7 @@
 package com.example.musicplayerclone
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.PopupMenu
@@ -76,6 +77,11 @@ class ToDoActivity : AppCompatActivity() {
             popupMenu.show()
         }
 
+        binding.fb.setOnClickListener {
+
+            val intent = Intent(this, NewTask::class.java)
+            startActivity(intent)
+        }
     }
 
 

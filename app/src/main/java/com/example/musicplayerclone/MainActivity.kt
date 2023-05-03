@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         activityScope.launch {
-            delay(2000)
+            delay(1000)
 
             val intent = Intent(this@MainActivity, ToDoActivity::class.java)
             startActivity(intent)
