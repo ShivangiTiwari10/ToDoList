@@ -11,5 +11,6 @@ class NewTask : AppCompatActivity() {
 
         binding = ActivityNewTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
     }
 }
