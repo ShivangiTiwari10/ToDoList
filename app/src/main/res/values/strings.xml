@@ -11,4 +11,5 @@
     <string name="close_app">Close App</string>
     <string name="spinner_title">Spinner Title</string>
     <string name="todolist">ToDoList</string>
+    <string name="enter_quick_task_here">Enter quick task Here</string>
 </resources>
