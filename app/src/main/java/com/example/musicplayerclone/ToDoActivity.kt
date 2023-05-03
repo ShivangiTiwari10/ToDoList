@@ -12,5 +12,7 @@ class ToDoActivity : AppCompatActivity() {
 
         binding = ActivityToDoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
     }
 }
