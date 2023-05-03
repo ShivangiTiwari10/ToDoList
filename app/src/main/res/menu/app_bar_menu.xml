@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
-        android:id="@+id/miAddContect"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/setting"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/miFeedBack"
+        android:id="@+id/taskList"
         android:title="@string/task_list"
         app:showAsAction="never" />
     <item
-        android:id="@+id/miCloseapp"
+        android:id="@+id/addINBatch"
         android:title="@string/add_in_batch_mode"
         app:showAsAction="never" />
     <item
+        android:id="@+id/removeAdds"
         android:title="@string/remove_adds"
         app:showAsAction="never" />
+
     <item
+        android:id="@+id/moreApps"
         android:title="@string/more_app"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/inVite"
+        android:title="@string/invite_friends"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/closeApp"
+        android:title="@string/close_app"
         app:showAsAction="never" />
 
 </menu>

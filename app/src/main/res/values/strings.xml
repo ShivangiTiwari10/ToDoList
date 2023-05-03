@@ -6,4 +6,9 @@
     <string name="add_in_batch_mode">add in batch mode</string>
     <string name="task_list">Task List</string>
     <string name="setting">setting</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="settings">Settings</string>
+    <string name="close_app">Close App</string>
+    <string name="spinner_title">Spinner Title</string>
+    <string name="todolist">ToDoList</string>
 </resources>
