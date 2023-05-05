@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -132,14 +131,15 @@ class ToDoActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
+                val task = list[position]
 
                 if (direction == ItemTouchHelper.LEFT) {
                     GlobalScope.launch(Dispatchers.IO) {
-                        db.todoDao().deleteTask(adapter.getItemId(position))
+                        db.todoDao().deleteTask(task.id)
                     }
                 } else if (direction == ItemTouchHelper.RIGHT) {
                     GlobalScope.launch(Dispatchers.IO) {
-                        db.todoDao().finishTask(adapter.getItemId(position))
+                        db.todoDao().finishTask(task.id)
                     }
                 }
 
@@ -278,8 +278,6 @@ class ToDoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun openNewTask(view: View) {
-        startActivity(Intent(this, NewTask::class.java))
-    }
+
 
 }
