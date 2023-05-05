@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -51,63 +52,6 @@ class ToDoActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         })
-
-
-//        binding.dots.setOnClickListener {
-//            val popupMenu = PopupMenu(this, binding.dots)
-//            popupMenu.inflate(R.menu.app_bar_menu)
-//            popupMenu.setOnMenuItemClickListener {
-//                // Do something when a menu item is clicked
-//                when (it.itemId) {
-//
-//
-//                    R.id.taskList -> Toast.makeText(
-//                        this,
-//                        "You clicked on taskList",
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
-//
-//                    R.id.addINBatch -> Toast.makeText(
-//                        this,
-//                        "You clicked on addINBatch",
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
-//
-//                    R.id.removeAdds -> Toast.makeText(
-//                        this,
-//                        "You clicked on removeAdds",
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
-//
-//
-//                    R.id.moreApps -> Toast.makeText(
-//                        this,
-//                        "You clicked on moreApps",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//
-//                    R.id.inVite -> Toast.makeText(
-//                        this,
-//                        "You clicked on inVite",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//
-//                    R.id.settings -> Toast.makeText(
-//                        this,
-//                        "You clicked on settings",
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
-//                    R.id.closeApp -> finish()
-//
-//                }
-//                true
-//            }
-//            popupMenu.show()
-//        }
 
         binding.fb.setOnClickListener {
 
@@ -176,9 +120,7 @@ class ToDoActivity : AppCompatActivity() {
                             itemView.top.toFloat() + (itemView.bottom.toFloat() - itemView.top.toFloat() - icon.height.toFloat()) / 2,
                             paint
                         )
-                    }
-
-                    else {
+                    } else {
                         icon = BitmapFactory.decodeResource(resources, R.mipmap.trash)
 
                         paint.color = Color.parseColor("#D32F2F")
@@ -217,12 +159,14 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.app_bar_menu, menu)
 
         val item = menu.findItem(R.id.search)
         val searchView = item.actionView as SearchView
 
+
         item.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 displayTodo()
                 return true
@@ -248,6 +192,7 @@ class ToDoActivity : AppCompatActivity() {
                 return true
             }
 
+
         })
         return super.onCreateOptionsMenu(menu)
 
@@ -256,11 +201,11 @@ class ToDoActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     fun displayTodo(newText: String = "") {
         db.todoDao().getTask().observe(this, Observer {
-            if(it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 list.clear()
                 list.addAll(
                     it.filter { todo ->
-                        todo.title.contains(newText,true)
+                        todo.title.contains(newText, true)
                     }
                 )
                 adapter.notifyDataSetChanged()
@@ -271,13 +216,29 @@ class ToDoActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.history -> {
-                startActivity(Intent(this, MainActivity::class.java))
+            R.id.taskList -> {
+                Toast.makeText(this, "you clicked on taskList", Toast.LENGTH_SHORT).show()
             }
+            R.id.addINBatch -> {
+                Toast.makeText(this, "you clicked addINBatch", Toast.LENGTH_SHORT).show()
+            }
+            R.id.moreApps -> {
+                Toast.makeText(this, "you clicked moreApps", Toast.LENGTH_SHORT).show()
+            }
+            R.id.inVite -> {
+                Toast.makeText(this, "you clicked inVite", Toast.LENGTH_SHORT).show()
+            }
+            R.id.settings -> {
+                Toast.makeText(this, "you clicked settings", Toast.LENGTH_SHORT).show()
+            }
+            R.id.closeApp -> {
+                Toast.makeText(this, "you clicked closeApp", Toast.LENGTH_SHORT).show()
+            }
+
+
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 
 }
