@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_todo.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,8 +39,6 @@ class ToDoAdapter(val list: List<ToDoModel>) : RecyclerView.Adapter<ToDoAdapter.
                 val txtShowCategory = findViewById<TextView>(R.id.txtShowCategory)
 
 
-
-
                 viewColorTag.setBackgroundColor(randomColor)
                 txtShowTitle.text = todoModel.title
                 txtShowTask.text = todoModel.description
@@ -54,11 +51,10 @@ class ToDoAdapter(val list: List<ToDoModel>) : RecyclerView.Adapter<ToDoAdapter.
 
         @SuppressLint("SimpleDateFormat")
         private fun updateTime(time: Long) {
-
             //Mon, 5 Jan 2020
             val myformat = "h:mm a"
             val sdf = SimpleDateFormat(myformat)
-            itemView.txtShowTime.text = sdf.format(Date(time))
+            itemView.findViewById<TextView>(R.id.txtShowTime).text = sdf.format(Date(time))
 
         }
 
@@ -67,7 +63,7 @@ class ToDoAdapter(val list: List<ToDoModel>) : RecyclerView.Adapter<ToDoAdapter.
             //Mon, 5 Jan 2020
             val myformat = "EEE, d MMM yyyy"
             val sdf = SimpleDateFormat(myformat)
-            itemView.txtShowDate.text = sdf.format(Date(time))
+            itemView.findViewById<TextView>(R.id.txtShowDate).text = sdf.format(Date(time))
 
         }
     }

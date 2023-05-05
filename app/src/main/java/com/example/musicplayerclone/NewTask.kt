@@ -1,18 +1,59 @@
 package com.example.musicplayerclone
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.TimePicker
 import com.example.musicplayerclone.databinding.ActivityNewTaskBinding
+import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.util.*
+
+const val DB_NAME = "todo.db"
 
 class NewTask : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityNewTaskBinding
+
+    lateinit var myCalendar: Calendar
+
+    lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
+
+
+    var finalDate = 0L
+    var finalTime = 0L
+
+    private val labels = arrayListOf("Personal", "Business", "Insurance", "Shopping", "Banking")
+
+
+    private val db by lazy {
+        AppDatabase.getDatabase(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityNewTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
+
+        binding.dateEdt.setOnClickListener(this)
+        binding.timeEdt.setOnClickListener(this)
+        binding.saveBtn.setOnClickListener(this)
+        setUpSpinner()
+    }
+
+    private fun setUpSpinner() {
+        val adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, labels)
+
+        labels.sort()
+
+        binding.spinnerCategory.adapter = adapter
     }
 
     override fun onClick(v: View?) {
@@ -32,15 +73,76 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
+    @OptIn(DelicateCoroutinesApi::class)
     private fun saveTodo() {
-        TODO("Not yet implemented")
+        val category = binding.spinnerCategory.selectedItem.toString()
+        val title = binding.titleInpLay.editText?.text.toString()
+        val description = binding.taskInpLay.editText?.text.toString()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                return@withContext db.todoDao().insertTask(
+                    ToDoModel(
+                        title,
+                        description,
+                        category,
+                        finalDate,
+                        finalTime
+                    )
+                )
+            }
+            finish()
+        }
     }
 
     private fun setTimeListener() {
-        TODO("Not yet implemented")
+        myCalendar = Calendar.getInstance()
+        timeSetListener =
+            TimePickerDialog.OnTimeSetListener() { _: TimePicker, hourOfDay: Int, min: Int ->
+                myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                myCalendar.set(Calendar.MINUTE, min)
+                updateTime()
+            }
+        val timePickerDialog = TimePickerDialog(
+            this, timeSetListener, myCalendar.get(Calendar.HOUR_OF_DAY),
+            myCalendar.get(Calendar.MINUTE), false
+        )
+        timePickerDialog.show()
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun updateTime() {
+        val myformat = "h:mm a"
+        val sdf = SimpleDateFormat(myformat)
+        finalTime = myCalendar.time.time
+        binding.timeEdt.setText(sdf.format(myCalendar.time))
     }
 
     private fun setListener() {
-        TODO("Not yet implemented")
+        myCalendar = Calendar.getInstance()
+
+
+        dateSetListener =
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                myCalendar.set(Calendar.YEAR, year)
+                myCalendar.set(Calendar.MONTH, month)
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDate()
+
+            }
     }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun updateDate() {
+        val myformat = "EEE, d MMM yyyy"
+        val sdf = SimpleDateFormat(myformat)
+        finalDate = myCalendar.time.time
+        binding.dateEdt.setText(sdf.format(myCalendar.time))
+
+        binding.timeInptLay.visibility = View.VISIBLE
+
+    }
+
 }
