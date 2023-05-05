@@ -52,8 +52,7 @@ class ToDoAdapter(val list: List<ToDoModel>) : RecyclerView.Adapter<ToDoAdapter.
         @SuppressLint("SimpleDateFormat")
         private fun updateTime(time: Long) {
             //Mon, 5 Jan 2020
-            val myformat = "h:mm a"
-            val sdf = SimpleDateFormat(myformat)
+            val sdf = SimpleDateFormat("h:mm a")
             itemView.findViewById<TextView>(R.id.txtShowTime).text = sdf.format(Date(time))
 
         }
@@ -67,4 +66,5 @@ class ToDoAdapter(val list: List<ToDoModel>) : RecyclerView.Adapter<ToDoAdapter.
 
         }
     }
+
 }

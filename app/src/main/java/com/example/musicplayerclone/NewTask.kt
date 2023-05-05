@@ -104,12 +104,15 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
                 myCalendar.set(Calendar.MINUTE, min)
                 updateTime()
             }
-        val timePickerDialog = TimePickerDialog(
-            this, timeSetListener, myCalendar.get(Calendar.HOUR_OF_DAY),
-            myCalendar.get(Calendar.MINUTE), false
-        )
-        timePickerDialog.show()
-
+        // show the TimePickerDialog
+        TimePickerDialog(
+            this,
+            timeSetListener,
+            myCalendar.get(Calendar.HOUR_OF_DAY),
+            myCalendar.get(Calendar.MINUTE),
+            false
+        ).show()
+        
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -132,14 +135,22 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
                 updateDate()
 
             }
+
+        // show the DatePickerDialog
+        DatePickerDialog(
+            this,
+            dateSetListener,
+            myCalendar.get(Calendar.YEAR),
+            myCalendar.get(Calendar.MONTH),
+            myCalendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
     @SuppressLint("SimpleDateFormat")
     private fun updateDate() {
-        val myformat = "EEE, d MMM yyyy"
-        val sdf = SimpleDateFormat(myformat)
+        val myformat = SimpleDateFormat("EEE,d MMM yyy HH:mm a")
         finalDate = myCalendar.time.time
-        binding.dateEdt.setText(sdf.format(myCalendar.time))
+        binding.dateEdt.setText(myformat.format(myCalendar.time))
 
         binding.timeInptLay.visibility = View.VISIBLE
 
