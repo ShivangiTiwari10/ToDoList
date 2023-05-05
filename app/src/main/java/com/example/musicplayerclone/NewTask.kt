@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
+import android.widget.Toast
 import com.example.musicplayerclone.databinding.ActivityNewTaskBinding
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -40,6 +41,8 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
 
         binding = ActivityNewTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.hide()
 
         binding.dateEdt.setOnClickListener(this)
         binding.timeEdt.setOnClickListener(this)
@@ -80,20 +83,26 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
         val title = binding.titleInpLay.editText?.text.toString()
         val description = binding.taskInpLay.editText?.text.toString()
 
-        GlobalScope.launch(Dispatchers.Main) {
-            withContext(Dispatchers.IO) {
-                return@withContext db.todoDao().insertTask(
-                    ToDoModel(
-                        title,
-                        description,
-                        category,
-                        finalDate,
-                        finalTime
+        if (category.isEmpty() || title.isEmpty() || description.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+        } else {
+            GlobalScope.launch(Dispatchers.Main) {
+                withContext(Dispatchers.IO) {
+                    return@withContext db.todoDao().insertTask(
+                        ToDoModel(
+                            title,
+                            description,
+                            category,
+                            finalDate,
+                            finalTime
+                        )
                     )
-                )
+                }
+                finish()
             }
-            finish()
         }
+
+
     }
 
     private fun setTimeListener() {
@@ -112,7 +121,7 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
             myCalendar.get(Calendar.MINUTE),
             false
         ).show()
-        
+
     }
 
     @SuppressLint("SimpleDateFormat")
