@@ -103,7 +103,7 @@
             android:drawablePadding="8dp"
             android:focusable="true"
 
-            android:hint="@string/set_date"
+            android:hint="@string/click_here"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textSize="18sp" />
@@ -127,7 +127,7 @@
             android:cursorVisible="false"
             android:drawablePadding="8dp"
             android:focusable="true"
-            android:hint="@string/set_time"
+            android:hint="@string/click_here"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textSize="18sp" />

@@ -20,6 +20,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ToDoActivity : AppCompatActivity() {
     val list = arrayListOf<ToDoModel>()
@@ -60,6 +61,7 @@ class ToDoActivity : AppCompatActivity() {
 
             val intent = Intent(this, NewTask::class.java)
             startActivity(intent)
+
         }
 
     }
@@ -202,6 +204,7 @@ class ToDoActivity : AppCompatActivity() {
 
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     fun displayTodo(newText: String = "") {
         db.todoDao().getTask().observe(this) {
@@ -218,7 +221,7 @@ class ToDoActivity : AppCompatActivity() {
     }
 
 
-//    set listener on menu item
+    //    set listener on menu item
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.taskList -> {
@@ -249,7 +252,7 @@ class ToDoActivity : AppCompatActivity() {
                 }
                 Toast.makeText(this, "welcome to downloader app", Toast.LENGTH_SHORT).show()
             }
-      
+
             R.id.feedback -> {
                 sendFeedback()
             }
@@ -260,7 +263,7 @@ class ToDoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-//    implementation for send feedBack
+    //    implementation for send feedBack
     @SuppressLint("IntentReset")
     private fun sendFeedback() {
         val recipientEmail = "feedback@example.com" // Replace with your email address

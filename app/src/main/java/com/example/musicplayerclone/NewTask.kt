@@ -86,6 +86,7 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
         if (category.isEmpty() || title.isEmpty() || description.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
         } else {
+
             GlobalScope.launch(Dispatchers.Main) {
                 withContext(Dispatchers.IO) {
                     return@withContext db.todoDao().insertTask(
@@ -96,13 +97,12 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
                             finalDate,
                             finalTime
                         )
+
                     )
                 }
                 finish()
             }
         }
-
-
     }
 
     private fun setTimeListener() {
@@ -166,3 +166,4 @@ class NewTask : AppCompatActivity(), View.OnClickListener {
     }
 
 }
+
