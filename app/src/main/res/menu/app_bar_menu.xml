@@ -18,13 +18,10 @@
         android:id="@+id/moreApps"
         android:title="@string/more_app"
         app:showAsAction="never" />
+
     <item
-        android:id="@+id/inVite"
-        android:title="@string/invite_friends"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
+        android:id="@+id/feedback"
+        android:title="@string/send_feedback"
         app:showAsAction="never" />
     <item
         android:id="@+id/closeApp"

@@ -31,6 +31,7 @@ class ToDoActivity : AppCompatActivity() {
         AppDatabase.getDatabase(this)
     }
 
+
     @SuppressLint("CutPasteId", "NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class ToDoActivity : AppCompatActivity() {
             val intent = Intent(this, NewTask::class.java)
             startActivity(intent)
         }
+
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -213,14 +215,14 @@ class ToDoActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
-
     }
 
+
+//    set listener on menu item
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.taskList -> {
 
-                Toast.makeText(this, "you clicked on taskList", Toast.LENGTH_SHORT).show()
             }
             R.id.addINBatch -> {
                 Toast.makeText(this, "you clicked addINBatch", Toast.LENGTH_SHORT).show()
@@ -247,17 +249,36 @@ class ToDoActivity : AppCompatActivity() {
                 }
                 Toast.makeText(this, "welcome to downloader app", Toast.LENGTH_SHORT).show()
             }
-            R.id.inVite -> {
-                Toast.makeText(this, "you clicked inVite", Toast.LENGTH_SHORT).show()
-            }
-            R.id.settings -> {
-                Toast.makeText(this, "you clicked settings", Toast.LENGTH_SHORT).show()
+      
+            R.id.feedback -> {
+                sendFeedback()
             }
             R.id.closeApp -> {
                 finish()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+//    implementation for send feedBack
+    @SuppressLint("IntentReset")
+    private fun sendFeedback() {
+        val recipientEmail = "feedback@example.com" // Replace with your email address
+        val subject = "Feedback for TODO ListApp"
+        val body = "Enter your feedback here."
+
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.data = Uri.parse("mailto:")
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(recipientEmail))
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, body)
+
+        try {
+            startActivity(Intent.createChooser(intent, "Send Feedback"))
+        } catch (e: ActivityNotFoundException) {
+            // Handle the case where no email app is available
+        }
     }
 
 
