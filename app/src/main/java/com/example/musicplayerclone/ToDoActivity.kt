@@ -1,15 +1,17 @@
 package com.example.musicplayerclone
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.*
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +44,7 @@ class ToDoActivity : AppCompatActivity() {
         }
         initSwipe()
 
-        db.todoDao().getTask().observe(this, Observer {
+        db.todoDao().getTask().observe(this) {
             if (!it.isNullOrEmpty()) {
                 list.clear()
                 list.addAll(it)
@@ -51,7 +53,7 @@ class ToDoActivity : AppCompatActivity() {
                 list.clear()
                 adapter.notifyDataSetChanged()
             }
-        })
+        }
 
         binding.fb.setOnClickListener {
 
@@ -200,7 +202,7 @@ class ToDoActivity : AppCompatActivity() {
 
     @SuppressLint("NotifyDataSetChanged")
     fun displayTodo(newText: String = "") {
-        db.todoDao().getTask().observe(this, Observer {
+        db.todoDao().getTask().observe(this) {
             if (it.isNotEmpty()) {
                 list.clear()
                 list.addAll(
@@ -210,20 +212,40 @@ class ToDoActivity : AppCompatActivity() {
                 )
                 adapter.notifyDataSetChanged()
             }
-        })
+        }
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.taskList -> {
+
                 Toast.makeText(this, "you clicked on taskList", Toast.LENGTH_SHORT).show()
             }
             R.id.addINBatch -> {
                 Toast.makeText(this, "you clicked addINBatch", Toast.LENGTH_SHORT).show()
             }
             R.id.moreApps -> {
-                Toast.makeText(this, "you clicked moreApps", Toast.LENGTH_SHORT).show()
+                val appPackageName = "com.android.vending"
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$appPackageName")
+                        )
+                    )
+                    Log.d("Exeption", "${Intent.CREATOR}")
+
+                } catch (e: ActivityNotFoundException) {
+                    Log.d("Exeption", "$e")
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        )
+                    )
+                }
+                Toast.makeText(this, "welcome to downloader app", Toast.LENGTH_SHORT).show()
             }
             R.id.inVite -> {
                 Toast.makeText(this, "you clicked inVite", Toast.LENGTH_SHORT).show()
@@ -232,10 +254,8 @@ class ToDoActivity : AppCompatActivity() {
                 Toast.makeText(this, "you clicked settings", Toast.LENGTH_SHORT).show()
             }
             R.id.closeApp -> {
-                Toast.makeText(this, "you clicked closeApp", Toast.LENGTH_SHORT).show()
+                finish()
             }
-
-
         }
         return super.onOptionsItemSelected(item)
     }
