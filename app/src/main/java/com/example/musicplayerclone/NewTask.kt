@@ -20,14 +20,14 @@ const val DB_NAME = "todo.db"
 class NewTask : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityNewTaskBinding
 
-    lateinit var myCalendar: Calendar
+    private lateinit var myCalendar: Calendar
 
-    lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
-    lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
+    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
 
 
-    var finalDate = 0L
-    var finalTime = 0L
+    private var finalDate = 0L
+    private var finalTime = 0L
 
     private val labels = arrayListOf("Personal", "Business", "Insurance", "Shopping", "Banking")
 
