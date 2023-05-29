@@ -227,9 +227,6 @@ class ToDoActivity : AppCompatActivity() {
             R.id.taskList -> {
 
             }
-            R.id.addINBatch -> {
-                Toast.makeText(this, "you clicked addINBatch", Toast.LENGTH_SHORT).show()
-            }
             R.id.moreApps -> {
                 val appPackageName = "com.android.vending"
                 try {

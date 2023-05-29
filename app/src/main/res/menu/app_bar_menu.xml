@@ -5,14 +5,6 @@
         android:id="@+id/taskList"
         android:title="@string/task_list"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/addINBatch"
-        android:title="@string/add_in_batch_mode"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/removeAdds"
-        android:title="@string/remove_adds"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/moreApps"
